@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-body:           #1a1a1a;
+  --bg-calc:           #1e1e1e;
+  --bg-digit:          #3a3a3a;
+  --bg-digit-hover:    #484848;
+  --bg-utility:        #555555;
+  --bg-utility-hover:  #666666;
+  --bg-operator:       #c0244e;
+  --bg-operator-hover: #d62d5a;
+  --bg-operator-active:#a01e42;
+  --text-primary:      #ffffff;
+  --text-dim:          rgba(255,255,255,0.45);
+  --shadow-btn:        0 6px 16px rgba(0,0,0,0.45);
+  --shadow-calc:       0 32px 80px rgba(0,0,0,0.6);
+  --btn-size:          68px;
+  --gap:               14px;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-body);
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ── Calculator shell ── */
+.calculator {
+  background: var(--bg-calc);
+  border-radius: 28px;
+  padding: 28px 24px 24px;
+  width: 340px;
+  box-shadow: var(--shadow-calc);
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* ── Display ── */
+.display {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 12px 8px 22px;
+  min-height: 90px;
+  gap: 4px;
+}
+
+.expression {
+  font-size: 14px;
+  color: var(--text-dim);
+  min-height: 18px;
+  letter-spacing: 0.03em;
+}
+
+.result {
+  font-size: 52px;
+  font-weight: 300;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  transition: font-size 0.15s ease;
+  word-break: break-all;
+  text-align: right;
+}
+
+.result.small  { font-size: 36px; }
+.result.xsmall { font-size: 26px; }
+
+/* ── Button grid ── */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, var(--btn-size));
+  gap: var(--gap);
+  justify-content: center;
+}
+
+/* ── Base button ── */
+.btn {
+  width:  var(--btn-size);
+  height: var(--btn-size);
+  border: none;
+  border-radius: 50%;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-btn);
+  transition: background 0.12s ease, transform 0.08s ease, box-shadow 0.12s ease;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active {
+  transform: scale(0.92);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+}
+
+.btn.digit {
+  background: var(--bg-digit);
+}
+.btn.digit:hover {
+  background: var(--bg-digit-hover);
+}
+
+.btn.utility {
+  background: var(--bg-utility);
+  font-size: 18px;
+}
+.btn.utility:hover {
+  background: var(--bg-utility-hover);
+}
+
+.btn.operator {
+  background: var(--bg-operator);
+  font-size: 22px;
+}
+.btn.operator:hover  { background: var(--bg-operator-hover); }
+.btn.operator:active { background: var(--bg-operator-active); }
+
+/* Highlight active operator */
+.btn.operator.active-op {
+  background: #ffffff;
+  color: var(--bg-operator);
+}
+
+/* ── Wide "0" button ── */
+.btn.wide {
+  width: calc(var(--btn-size) * 2 + var(--gap));
+  border-radius: calc(var(--btn-size) / 2);
+  justify-content: flex-start;
+  padding-left: 26px;
+  grid-column: span 2;
+}
+
+/* ── Press ripple ── */
+@keyframes pop {
+  0%   { transform: scale(0.90); }
+  60%  { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+.btn.pop { animation: pop 0.18s ease-out forwards; }
